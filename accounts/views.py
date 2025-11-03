@@ -2,8 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.timesince import timesince
 from django.utils import timezone
 from django.contrib import messages
-from django.contrib.auth import login as django_login
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import update_session_auth_hash, login as django_login
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 
 from .models import CustomUser
@@ -17,9 +17,31 @@ def login(request):
             user = form.get_user()
             django_login(request, user)
             return redirect('index')
+        else:
+            for errors in form.errors.values():
+                for e in errors:
+                    messages.error(request, e)
+            return redirect('login')
     else:
         form = AuthenticationForm()
     return render(request, 'accounts/login.html', context={"form": form})
+
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Password updated successfully.')
+            return redirect('preferences')
+        else:
+            for errors in form.errors.values():
+                for e in errors:
+                    messages.error(request, e)
+            return redirect('change_password')
+    return render(request, 'accounts/change_password.html', {'form': PasswordChangeForm(request.user)})
 
 
 def profile(request, username):

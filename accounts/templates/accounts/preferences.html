@@ -21,7 +21,10 @@
         <label for="{{ form.username.id_for_label }}">Username*</label> {{ form.username }}
         <label for="{{ form.about.id_for_label }}">About</label> {{ form.about }}
     </div>
-    <button type="submit">Update Profile</button>
+    <span style='display: flex;'>
+        <button type="submit">Update Profile</button>
+        <a style="padding-top: 6pt" class='danger corner' href="{% url 'change_password' %}">Change Password</a>
+    </span>
 </form>
 
 <hr>

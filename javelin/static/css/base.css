@@ -4,12 +4,14 @@
     --space-md: 8pt;
     --space-lg: 12pt;
     --space-xl: 18pt;
+
+    --button-bg: #eee;
 }
 
 nav {
     display: flex;
     align-items: center;
-    background-color: #aaa;
+    background-color: #bbb;
     padding: var(--space-sm);
 }
 
@@ -70,7 +72,7 @@ button, .btn {
     padding: var(--space-sd);
     margin: var(--space-sm) 0;
     gap: 1rem;
-    background: #aaa;
+    background: #bbb;
 }
 
 #header form {
