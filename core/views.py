@@ -3,10 +3,8 @@ from django.db.models import Q
 
 from lists.models import List
 
-LIST_PREVIEW_MAX_COUNT = 20
 
-
-def get_list_previews(user, limit=3, max_rows=LIST_PREVIEW_MAX_COUNT):
+def get_list_previews(user, limit=3, max_rows=5):
     previews = (
             List.objects.filter(Q(owner=user) | Q(contributors=user))
             .distinct()

@@ -11,7 +11,7 @@
             <em>_nothing_</em>
         {% else %}
         {% include "lists/base_table.html" with rows=p.serialized %}
-        ...
+        ...<a href="{% url 'list_dash' p.id %}">view more</a>
         {% endif %}
     </div>
 {% endfor %}
