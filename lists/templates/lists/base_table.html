@@ -8,10 +8,10 @@
     </tr>
     {% for row in rows %}
     <tr data-row-id="{{ row.id }}">
-        <td><a href="{% url 'profile' row.added_by %}">{{ row.added_by }}</a></td>
-        <td><a>{{ row.date_added }}</a></td>
-        <td><a>{{ row.title }}</a></td>
-        <td><a>{{ row.media_type }}</a></td>
+        <td class='added-by'><a href="{% url 'profile' row.added_by %}">{{ row.added_by }}</a></td>
+        <td class='date-added'>{{ row.date_added }}</td>
+        <td class='title'>{{ row.title }}</td>
+        <td class='media-type'>{{ row.media_type }}</td>
 
         {% if is_owner or request.user.username == row.added_by %}
         <!-- you must provide a function `removeRow` if you wish to use this --!>

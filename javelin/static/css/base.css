@@ -40,8 +40,16 @@ nav a, #header a {
 
 main {
     font: courier;
-    margin: var(--space-sm) 4rem var(--space-sm);
+    margin: var(--space-sm) 2rem var(--space-sm);
     padding: var(--space-sm);
+}
+
+@media (width <= 800px) {
+    main {
+        font: courier;
+        margin: var(--space-xs) 1rem var(--space-xs);
+        padding: var(--space-xs);
+    }
 }
 
 .labelled_grid {
@@ -103,7 +111,7 @@ button, .btn {
     margin: 4pt 4pt;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    word-wrap: break-word;
     padding: var(--space-sm);
     border: 1px solid #000;
 }
@@ -140,10 +148,25 @@ button, .btn {
 }
 
 .remove-x {
-    height: 1.5em;
+    display: block;
+    font: .8rem/1 sans-serif;
+    font-weight: bold;
+    color: red;
     width: auto;
+    padding: none;
+    margin: none;
 }
 
 .danger {
     color: red;
+}
+
+@media (width <= 800px) {
+    .list tr { height: 2em; }
+    .list th.added-by { width: 10%; max-width: 5ch; }
+    .list th.title { width: 40%; max-width: 5ch; }
+    .list th.media-type { width: 10%; max-width: 5ch; }
+    .list th.delete-header { width: 4%; max-width: 5ch; }
+
+    .list th.date-added, .list td.date-added { display: none; }
 }
