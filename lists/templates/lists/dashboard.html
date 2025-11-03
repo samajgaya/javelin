@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ list_name }} | Javelin{% endblock %}
+
+{% block content %}
+{% if not rows %}
+<div class='centered'>
+    <p>
+    <em>*sad empty list*</em>
+    </p>
+</div>
+{% else %}
+{% include 'lists/base_table.html' with view_columns=view_columns rows=rows is_owner=is_owner %}
+{% endif %}
+
+{% if is_owner or is_contributor %}
+<div id='list-control-panel'>
+    <button onclick="revealAddTitleForm(this)">Add Title</button>
+    <span class='corner'>
+    <button class='danger' onclick="revealRowDelete(this)">Remove Title</button>
+    </span>
+</div>
+{% endif %}
+
+<span id='add-row-form' class='hidden'>
+    <form method='post'>
+        {% csrf_token %}
+        {{ add_row_form.as_p }}
+
+        <div id='imdb-results'>
+            <!-- TODO --!>
+        </div>
+
+        <button type='submit'>Add Row</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block inline_script %}
+<script>
+function revealAddTitleForm(self) {
+    const form = document.getElementById('add-row-form');
+    if (self.textContent == 'Add Title')
+        self.textContent = 'Cancel';
+    else
+        self.textContent = 'Add Title';
+    form.classList.toggle('hidden')
+}
+
+function revealRowDelete(self) {
+    const listTables = document.getElementsByClassName('list');
+    if (!listTables) {
+        console.error('error: there should atleast be one list');
+        return;
+    }
+
+    if (self.textContent == 'Remove Title')
+        self.textContent = 'Cancel';
+    else
+        self.textContent = 'Remove Title';
+
+    const table = listTables[0];
+    table.classList.toggle('hide-delete');
+}
+
+function removeRow(self) {
+    tr = self.closest('tr')
+    rowId = tr.dataset.rowId;
+    
+    if (!confirm("delete this row?"))
+        return;
+
+    fetch(`delete/${rowId}/`, {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value
+        }
+    })
+    .then(r => {
+        if (!r.ok)
+            throw new Error("failed to delete row")
+        tr.remove()
+    })
+    .catch(e => console.error(e))
+}
+</script>
+{% endblock %}

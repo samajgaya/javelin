@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Preferences | Javelin{% endblock %}
+
+{% block header %}
+<div id='header'>
+    <a href="{% url 'profile' user.username %}">Profile</a>
+    |
+    <form id='logout-form' action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button class='logout-btn' type="submit">Logout</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <div class='labelled_grid'>
+        <label for="{{ form.username.id_for_label }}">Username*</label> {{ form.username }}
+        <label for="{{ form.about.id_for_label }}">About</label> {{ form.about }}
+    </div>
+    <button type="submit">Update Profile</button>
+</form>
+
+<hr>
+
+<div id="manage-lists">
+    <h3>Lists</h3>
+    <a href="{% url 'create_list' %}">New list</a>
+
+    <div id='list-of-lists'>
+        <ul>
+            {% for lst in user.lists_owned.all %}
+            <li><a href="{% url 'list_dash' lst.id %}">{{ lst.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block inline_script %}
+<script>
+    document.getElementById('logout-form').addEventListener('submit', e => {
+        const c = confirm('Do you wish to logout?')
+        if (!c) {
+            e.preventDefault();
+        }
+    });
+</script>
+{% endblock %}

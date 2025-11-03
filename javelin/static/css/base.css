@@ -1,0 +1,147 @@
+:root {
+    --space-xs: 2pt;
+    --space-sm: 5pt;
+    --space-md: 8pt;
+    --space-lg: 12pt;
+    --space-xl: 18pt;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    background-color: #aaa;
+    padding: var(--space-sm);
+}
+
+nav a, #header a {
+    text-decoration: none;
+    color: black;
+}
+
+.corner {
+    margin-left: auto;
+}
+
+.messages {
+    margin: 1rem 2rem;
+}
+
+.message {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.message.success { background-color: #d4edda; color: #155724; }
+.message.error   { background-color: #f8d7da; color: #721c24; }
+.message.warning { background-color: #fff3cd; color: #856404; }
+
+main {
+    font: courier;
+    margin: var(--space-sm) 4rem var(--space-sm);
+    padding: var(--space-sm);
+}
+
+.labelled_grid {
+    display: grid;
+    margin-top: 1rem;
+    grid-template-columns: minmax(10rem, min-content) 1fr;
+    column-gap: 1rem;
+    padding: var(--space-sm);
+    row-gap: var(--space-sm);
+}
+
+section, .block {
+    margin-bottom: var(--space-lg);
+}
+
+button, .btn {
+    margin: var(--space-sm);
+}
+
+.labelled_grid label::after {
+    content: ':';
+}
+
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: var(--space-sd);
+    margin: var(--space-sm) 0;
+    gap: 1rem;
+    background: #aaa;
+}
+
+#header form {
+    display: inline; /* prevent full-width form block */
+    margin: 0;
+}
+
+.logout-btn {
+    margin-left: auto;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+}
+
+.list {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.list tr {
+    height: 3em;
+}
+
+.list th, .list td {
+    margin: 4pt 4pt;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: var(--space-sm);
+    border: 1px solid #000;
+}
+
+.list th.added-by { width: 10%; min-width: 25ch; }
+.list th.date-added { width: 10%; min-width: 25ch; }
+.list th.media-type { width: 8%; }
+.list th.delete-header { width: 3%; }
+
+.hide-delete th.delete-header,
+.hide-delete td.delete-cell {
+    display: none;
+}
+
+.hidden {
+    display: none;
+}
+
+
+.list tr:nth-child(even) {
+    background-color: #eee;
+}
+
+.centered {
+    margin: 4rem;
+    display: grid;
+    justify-content: center;
+}
+
+#list-control-panel {
+    display: flex;
+    margin: 1em;
+    align-items: center;
+}
+
+.remove-x {
+    height: 1.5em;
+    width: auto;
+}
+
+.danger {
+    color: red;
+}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+{% for p in previews %}
+    <div class='preview'>
+        <h2><a href="{% url 'list_dash' p.id %}">{{ p.name }}</a></h2>
+        {% if not p.serialized %}
+            <em>_nothing_</em>
+        {% else %}
+        {% include "lists/base_table.html" with rows=p.serialized %}
+        ...
+        {% endif %}
+    </div>
+{% endfor %}
+{% else %}
+<div class='centered'>
+    <p>
+    This is an invite only site. If you have an account <a href="{% url 'login' %}">log in</a>.
+    </p>
+</div>
+{% endif %}
+{% endblock %}

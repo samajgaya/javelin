@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %} {{ username }} ∣ Javelin {% endblock %}
+
+{% block content %}
+<h2> {{ username }} </h2>
+<section id='profile'>
+  <div class='labelled_grid'>
+      <label> Status </label> {{ status }}
+      <label> About </label> {{ about }}
+      <label> Joined </label> {{ joined_since }}
+  </div>
+</section>
+{% endblock %}

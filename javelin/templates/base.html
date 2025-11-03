@@ -1,0 +1,44 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{% block title %}{% endblock %}</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}"/>
+  <link rel="icon" href="favicon.png">
+</head>
+
+<body>
+    <nav>
+        <a href="/">home</a>
+        <span class="corner">
+            {% if user.is_authenticated %}
+            <a href="{% url 'preferences' %}">{{ user.username }}</a>
+            {% else %}
+            <a href="{% url 'login'%}">Login</a>
+            {% endif %}
+        </span>
+    </nav>
+
+    {% block header %} {% endblock %}
+
+    <div class="messages">
+        {% for message in messages %}
+        <div class="message {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Don't enclose in `script` tags for syntax highlighting in extending files --!>
+    {% block inline_script %}
+    {% endblock %}
+</body>
+
+</html>

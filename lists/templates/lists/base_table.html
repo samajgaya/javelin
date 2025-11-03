@@ -1,0 +1,24 @@
+<table class='list hide-delete'>
+    <tr>
+        <th class="added-by">Added By</th>
+        <th class="date-added">Date Added</th>
+        <th class="title">Title</th>
+        <th class="media-type">Category</th>
+        <th class='delete-header'></th>
+    </tr>
+    {% for row in rows %}
+    <tr data-row-id="{{ row.id }}">
+        <td><a href="{% url 'profile' row.added_by %}">{{ row.added_by }}</a></td>
+        <td><a>{{ row.date_added }}</a></td>
+        <td><a>{{ row.title }}</a></td>
+        <td><a>{{ row.media_type }}</a></td>
+
+        {% if is_owner or request.user.username == row.added_by %}
+        <!-- you must provide a function `removeRow` if you wish to use this --!>
+        <td class='delete-cell'><button class='remove-x' onclick="removeRow(this)">X</button></td>
+        {% else %}
+        <td class='delete-cell'>-</td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+</table>
